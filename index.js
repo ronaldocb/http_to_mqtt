@@ -57,7 +57,7 @@ function logRequest(req, res, next) {
 }
 
 function authorizeUser(req, res, next) {
-    if (settings.auth_key && req.body['key'] != settings.auth_key) {
+    if (settings.auth_key && req.body['queryResult']['parameters']['key'] != settings.auth_key) {
         console.log('Request is not authorized.');
         res.sendStatus(401);
     }
