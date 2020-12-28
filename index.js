@@ -38,7 +38,7 @@ function getMqttClient() {
 var mqttClient = getMqttClient();
 
 app.set('port', settings.http_port);
-app.use(bodyParser.json());
+app.use(bodyParser.json({ parameters: '*/*' }));
 
 function logRequest(req, res, next) {
     var ip = req.headers['x-forwarded-for'] ||
