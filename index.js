@@ -38,7 +38,7 @@ function getMqttClient() {
 var mqttClient = getMqttClient();
 
 app.set('port', settings.http_port);
-app.use(bodyParser.json({ queryResult": { parameters: '*/*' }" }));
+app.use(bodyParser.json());
 
 function logRequest(req, res, next) {
     var ip = req.headers['x-forwarded-for'] ||
@@ -108,7 +108,7 @@ app.get('/keep_alive/', logRequest, function (req, res) {
 });
 
 app.post('/post/', logRequest, authorizeUser, checkSingleFileUpload, checkMessagePathQueryParameter, checkTopicQueryParameter, ensureTopicSpecified, function (req, res) {
-    mqttClient.publish(req.body['topic'], req.body['message']);
+    mqttClient.publish(req.body['responseId['parameters['topic']']'], req.body['responseId['parameters'message']']']);
     res.sendStatus(200);
 });
 
