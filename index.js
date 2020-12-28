@@ -87,7 +87,8 @@ function checkMessagePathQueryParameter(req, res, next) {
 function checkTopicQueryParameter(req, res, next) {
 
     if (req.query.topic) {
-        req.body.topic = req.query.topic;
+        //req.body.topic = req.query.topic;
+        req.body.topic = req.query.queryResult.parameters.topic;
     }
 
     next();
