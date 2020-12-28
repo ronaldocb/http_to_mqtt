@@ -87,15 +87,15 @@ function checkMessagePathQueryParameter(req, res, next) {
 function checkTopicQueryParameter(req, res, next) {
 
     if (req.query.topic) {
-        //req.body.topic = req.query.topic;
-        req.body.topic = req.query.queryResult.parameters.topic;
+        req.body.topic = req.query.topic;
     }
 
     next();
 }
 
 function ensureTopicSpecified(req, res, next) {
-    if (!req.body.topic) {
+    //if (!req.body.topic) {
+    if (!req.body['queryResult']['parameters']['topic']) {    
         res.status(500).send('Topic not specified');
     }
     else {
@@ -108,7 +108,8 @@ app.get('/keep_alive/', logRequest, function (req, res) {
     res.sendStatus(200);
 });
 
-app.post('/post/', logRequest, authorizeUser, checkSingleFileUpload, checkMessagePathQueryParameter, checkTopicQueryParameter, ensureTopicSpecified, function (req, res) {
+//app.post('/post/', logRequest, authorizeUser, checkSingleFileUpload, checkMessagePathQueryParameter, checkTopicQueryParameter, ensureTopicSpecified, function (req, res) {
+app.post('/post/', logRequest, authorizeUser, checkSingleFileUpload, ensureTopicSpecified, function (req, res) {
     mqttClient.publish(req.body['queryResult']['parameters']['topic'], req.body['queryResult']['parameters']['message']);
     res.sendStatus(200);
 });
